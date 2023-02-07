@@ -1,1 +1,9 @@
+CREATE OR REPLACE Customers();
 
+CREATE OR REPLACE Floors();
+
+CREATE OR REPLACE RoomTypes();
+
+CREATE OR REPLACE Rooms();
+
+CREATE OR REPLACE Bookings();
