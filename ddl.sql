@@ -1,6 +1,11 @@
+--Project Group 120: Karin Ocheretny & Althea Davis
+
 SET FOREIGN_KEY_CHECKS = 0;
 SET AUTOCOMMIT = 0;
 
+--
+-- CREATE TABLES
+--
 CREATE OR REPLACE TABLE `Customers`(
   `id` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -54,6 +59,10 @@ CREATE OR REPLACE TABLE `Bookings`(
 	FOREIGN KEY(`customer_id`) REFERENCES  `Customers`(`id`),
 	FOREIGN KEY(`room_id`) REFERENCES  `Rooms`(`id`)
 );
+
+--
+-- INSERT SAMPLE DATA
+--
 
 INSERT INTO Customers (name, phone_number, address, email)
 VALUES ("Jack Torrance", 5005555555, "27500 E Timberline Rd, OR 97028", "jtorrance@hello.com"),
