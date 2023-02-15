@@ -6,6 +6,17 @@
 -- SELECT Queries
 --
 
+-- Display the contents of each table
+
+SELECT * FROM Customers;
+
+SELECT * FROM Floors;
+
+SELECT * FROM RoomTypes;
+
+SELECT * FROM Rooms;
+
+SELECT * FROM Bookings;
 
 --
 -- INSERT Queries
