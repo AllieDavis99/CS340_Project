@@ -22,7 +22,7 @@ SELECT * FROM Bookings;
 -- INSERT Queries
 --
 
-INESRT INTO Customers (name, phone_number, address, email)
+INSERT INTO Customers (name, phone_number, address, email)
 VALUES (:name_input, :phone_number_input, :address_input, :email_input);
 
 INSERT INTO Floors (occupied_rooms, empty_rooms, has_facilities)
