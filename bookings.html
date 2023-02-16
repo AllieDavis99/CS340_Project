@@ -3,22 +3,40 @@
     <title>Bookings</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script language="JavaScript">
+        function showform(dowhat) {
+            if (dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'none';
+            }
 
-
-
-
+            else if (dowhat == 'delete') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else { //by default display browse
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'none';
+            }
+        }
+        function newBooking() { showform('insert'); }
+        function deleteBooking(pid) { showform('delete'); }
+        function browseBooking() { showform('browse'); }
+        function showAll() { showform('all'); }
     </script>
 </head>
 
-<style>
-    table, th, td {
-        border: 1px solid black;
-    }
-</style>
+<body onload="browseBookings()">
+    <h1>Bookings</h1>
 
-<body>
-    <h1>Customers</h1>
-    [ <a href="index.html">Home</a> 
+    [ <a href="index.html">Home</a>
     | <a href="customers.html">Customers</a>
     | <a href="bookings.html">Bookings</a>
     | <a href="floors.html">Floors</a>
@@ -26,4 +44,79 @@
     | <a href="roomtypes.html">Room Types</a>
     ]
 
-</html> 
+    <div id="browse">
+        <p><a href="#" onClick="showAll()">Display all forms</a> </p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="newBooking()">New</a></th>
+                    <th>ID</th>
+                    <th>customer_id</th>
+                    <th>room_id</th>
+                    <th>check_in</th>
+                    <th>check_out</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>1977-11-20</td>
+                <td>1977-12-08</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>2</td>
+                <td>2</td>
+                <td>3</td>
+                <td>1977-11-01</td>
+                <td>1977-11-21</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>1960-01-01</td>
+                <td>2023-01-01</td>
+            </tr>
+        </table>
+        </div>
+
+
+        <p>&nbsp;</p>
+        <div id="insert">
+            <form method="POST" id="addBooking">
+                <legend><strong>Add Booking</strong></legend>
+                <fieldset class="fields">
+                    <label> Booking id</label> <select name="Booking_id">
+                        <option value="0">&nbsp;</option>
+                        <option value="1" selected>1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4" selected>4</option>
+                    </select>
+                    <label> room id</label> <select name="room_id">
+                        <option value="0">&nbsp;</option>
+                        <option value="1" selected>1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3" selected>3</option>
+                    </select>
+                    <label> check_in </label> <input type="text" name="check_in">
+                    <label> check_out </label> <input type="text" name="check_out">
+                </fieldset>
+
+                <input class="btn" type="submit" id="addBooking" value="Add Booking">
+                <input class="btn" type="button" value="cancel" onClick="browseBookings()">
+            </form>
+        </div><!-- insert -->
+
+
+</body>
+</html>
+
+
+
+
+
+
+

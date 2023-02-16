@@ -3,22 +3,44 @@
     <title>Rooms</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script language="JavaScript">
+        function showform(dowhat) {
+            /*
+            * four DIVS: browse, insert, update, delete
+            * this function sets one visible the others not
+            */
+            if (dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'none';
+            }
 
-
-
-
+            else if (dowhat == 'delete') {
+                document.getElementById('browse').style.display = 'none';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'block';
+                document.getElementById('delete').style.display = 'block';
+            }
+            else { //by default display browse
+                document.getElementById('browse').style.display = 'block';
+                document.getElementById('insert').style.display = 'none';
+                document.getElementById('delete').style.display = 'none';
+            }
+        }
+        function newRoom() { showform('insert'); }
+        function deleteRoom(pid) { showform('delete'); }
+        function browseRoom() { showform('browse'); }
+        function showAll() { showform('all'); }
     </script>
 </head>
 
-<style>
-    table, th, td {
-        border: 1px solid black;
-    }
-</style>
+<body onload="browseRooms()">
+    <h1>Rooms</h1>
 
-<body>
-    <h1>Customers</h1>
-    [ <a href="index.html">Home</a> 
+    [ <a href="index.html">Home</a>
     | <a href="customers.html">Customers</a>
     | <a href="bookings.html">Bookings</a>
     | <a href="floors.html">Floors</a>
@@ -26,4 +48,72 @@
     | <a href="roomtypes.html">Room Types</a>
     ]
 
-</html> 
+    <div id="browse">
+        <p><a href="#" onClick="showAll()">Display all forms</a> </p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#" onClick="newRoom()">New</a></th>
+                <th>id</th>
+                <th>room_type_id</th>
+                <th>floor_id</th>
+                <th>is_occupied</th>
+                <th>num_occupants</th>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="deleteRoom('this.roomID')">Delete</a></td>
+                <td align="right">1</td>
+                <td align="right">2</td>
+                <td align="right">2</td>
+                <td>true</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="deleteRoom('this.roomID')">Delete</a></td>
+                <td align="right">2</td>
+                <td align="right">3</td>
+                <td align="right">2</td>
+                <td>false</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="deleteRoom('this.roomID')">Delete</a></td>
+                <td align="right">3</td>
+                <td align="right">2</td>
+                <td align="right">3</td>
+                <td>true</td>
+                <td>1</td>
+            </tr>
+        </table>
+        </div>
+
+        <p>&nbsp;</p>
+        <div id="insert">
+            <form method="POST" id="addRoom">
+                <legend><strong>Add Room</strong></legend>
+                <fieldset class="fields">
+                    <label> is_occupied </label> <select name="is_occupied">
+                            <option value="0">&nbsp;</option>
+                            <option value="1" selected>yes</option>
+                            <option value="2" selected>no</option>
+                            </select>
+                    <label> num_occupants </label> <input type="text" name="num_occupants">
+                </fieldset>
+                <input class="btn" type="submit" id="addRoom" value="Add Room">
+                <input class="btn" type="button" value="cancel" onClick="browseRooms()">
+            </form>
+        </div><!-- insert -->
+        <div id="delete" style="display: block">
+            <form id="deleteRoom">
+                <legend><strong>Delete Room</strong></legend>
+                <fieldset class="fields">
+                    <p>Are you sure you wish to delete the following?</p>
+                    <label>NULL</label> 
+
+                </fieldset>
+                <input class="btn" type="submit" id="DeleteRoom" value="Delete Room">
+                <input class="btn" type="button" value="cancel">
+            </form>
+        </div><!-- delete -->
+
+</body>
+</html>
