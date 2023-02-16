@@ -36,11 +36,12 @@ CREATE OR REPLACE TABLE `RoomTypes`(
 );
 
 CREATE OR REPLACE TABLE `FloorToRoomTypes` (
+	`id` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
 	`floor_id` int(11), 
 	`room_type_id` int(11),
-	PRIMARY KEY(`floor_id`, `room_type_id`),
+	PRIMARY KEY(`id`),
 	FOREIGN KEY(`floor_id`) REFERENCES `Floors`(`id`) ON DELETE CASCADE,
-	FOREIGN KEY(`room_type_id`) REFERENCES `RoomType`(`id`) ON DELETE CASCADE
+	FOREIGN KEY(`room_type_id`) REFERENCES `RoomTypes`(`id`) ON DELETE CASCADE
 );
 
 
@@ -50,7 +51,7 @@ CREATE OR REPLACE TABLE `Rooms`(
 	`is_occupied` tinyint(1) DEFAULT 0 NOT NULL,
 	`num_occupants` int(11),
 	PRIMARY KEY(`id`),
-	FOREIGN KEY(`floor_to_room_type_id`) REFERENCES  `FloorToRoomTypes`(`floor_id`, `room_type_id`) ON DELETE CASCADE
+	FOREIGN KEY(`floor_to_room_type_id`) REFERENCES  `FloorToRoomTypes`(`id`) ON DELETE CASCADE
 );
 
 
@@ -89,16 +90,16 @@ VALUES(1,1),
 (1,2),
 (2,3);
 
-INSERT INTO Rooms (room_type_id, floor_id, is_occupied, num_occupants)
-VALUES((SELECT id FROM RoomTypes WHERE type_name = "Suite"), 1, true, 3),
-((SELECT id FROM RoomTypes WHERE type_name = "Queen"), 1, false, 0),
-((SELECT id FROM RoomTypes WHERE type_name = "Economy"), 2, true, 1),
-((SELECT id FROM RoomTypes WHERE type_name = "Queen"), 3, true, 1);
+INSERT INTO Rooms (floor_to_room_type_id, is_occupied, num_occupants)
+VALUES(1, true, 3),
+(2, false, 0),
+(3, true, 1),
+(2, true, 1);
 
 INSERT INTO Bookings (customer_id, room_id, check_in, check_out)
 VALUES ((SELECT id FROM Customers WHERE name = "Jack Torrance"), (SELECT id FROM Rooms WHERE num_occupants = 3), '1977-11-20', '1977-12-08'),
-((SELECT id FROM Customers WHERE name = "Dick Hallorann"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_id = 2), '1977-11-01', '1977-11-21'),
-((SELECT id FROM Customers WHERE name = "Louise Grady"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_id = 3), '1960-01-01', '2023-01-01');
+((SELECT id FROM Customers WHERE name = "Dick Hallorann"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_to_room_type_id = 2), '1977-11-01', '1977-11-21'),
+((SELECT id FROM Customers WHERE name = "Louise Grady"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_to_room_type_id = 3), '1960-01-01', '2023-01-01');
 
 
 SET FOREIGN_KEY_CHECKS = 1;
