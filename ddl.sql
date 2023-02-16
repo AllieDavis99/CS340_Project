@@ -33,7 +33,14 @@ CREATE OR REPLACE TABLE `RoomTypes`(
 	`is_haunted` tinyint(1) DEFAULT 0 NOT NULL,
 	`price_per_night` decimal(19,2) NOT NULL,
 	PRIMARY KEY(`id`)
+);
 
+CREATE OR REPLACE TABLE `FloorToRoomTypes` (
+	`floor_id` int(11), 
+	`room_type_id` int(11),
+	PRIMARY KEY(`floor_id`, `room_type_id`),
+	FOREIGN KEY(`floor_id`) REFERENCES `Floors`(`id`),
+	FOREIGN KEY(`room_type_id`) REFERENCES `RoomType`(`id`)
 );
 
 
@@ -58,6 +65,14 @@ CREATE OR REPLACE TABLE `Bookings`(
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`customer_id`) REFERENCES  `Customers`(`id`),
 	FOREIGN KEY(`room_id`) REFERENCES  `Rooms`(`id`)
+);
+
+CREATE OR REPLACE TABLE `BookingsToRoomTypes`(
+	`booking_id` int(11),
+	`room_type_id` int(11),
+	PRIMARY KEY (`booking_id`, `room_type_id`),
+	FOREIGN KEY (`booking_id`) REFERENCES `Bookings`(`id`),
+	FOREIGN KEY (`room_type_id`) REFERENCES `RoomTypes`(`id`)
 );
 
 --
