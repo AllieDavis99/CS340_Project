@@ -39,8 +39,8 @@ CREATE OR REPLACE TABLE `FloorToRoomTypes` (
 	`floor_id` int(11), 
 	`room_type_id` int(11),
 	PRIMARY KEY(`floor_id`, `room_type_id`),
-	FOREIGN KEY(`floor_id`) REFERENCES `Floors`(`id`),
-	FOREIGN KEY(`room_type_id`) REFERENCES `RoomType`(`id`)
+	FOREIGN KEY(`floor_id`) REFERENCES `Floors`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY(`room_type_id`) REFERENCES `RoomType`(`id`) ON DELETE CASCADE
 );
 
 
@@ -50,7 +50,7 @@ CREATE OR REPLACE TABLE `Rooms`(
 	`is_occupied` tinyint(1) DEFAULT 0 NOT NULL,
 	`num_occupants` int(11),
 	PRIMARY KEY(`id`),
-	FOREIGN KEY(`floor_to_room_type_id`) REFERENCES  `FloorToRoomTypes`(`floor_id`, `room_type_id`)
+	FOREIGN KEY(`floor_to_room_type_id`) REFERENCES  `FloorToRoomTypes`(`floor_id`, `room_type_id`) ON DELETE CASCADE
 );
 
 
@@ -61,8 +61,8 @@ CREATE OR REPLACE TABLE `Bookings`(
 	`check_in` datetime NOT NULL,
 	`check_out` datetime NOT NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY(`customer_id`) REFERENCES  `Customers`(`id`),
-	FOREIGN KEY(`room_id`) REFERENCES  `Rooms`(`id`)
+	FOREIGN KEY(`customer_id`) REFERENCES  `Customers`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY(`room_id`) REFERENCES  `Rooms`(`id`) ON DELETE CASCADE
 );
 
 --
