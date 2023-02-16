@@ -46,7 +46,7 @@ VALUES (:customer_id_input, :room_id_input, :check_in_input, :check_out_input);
 -- UPDATE Queries
 --
 
---Querie to remove relationship by setting FKs to NULL
+--Querie to null M:M relationship by setting FK to NULL
 UPDATE FloorsToRoomTypes
 SET floor_id = Null, room_type_id = Null
 WHERE floor_id = :floor_id_input AND room_type_id = :room_type_id_input;
@@ -54,3 +54,7 @@ WHERE floor_id = :floor_id_input AND room_type_id = :room_type_id_input;
 --
 -- DELETE Queries
 --
+
+--Queries to delete M:M relationship eitirly
+DELETE FROM FloorsToRoomTypes
+WHERE floor_id = :floor_id_input AND room_type_id = :room_type_id_input;
