@@ -14,6 +14,8 @@ SELECT * FROM Floors;
 
 SELECT * FROM RoomTypes;
 
+SELECT * FROM FloorsToRoomTypes;
+
 SELECT * FROM Rooms;
 
 SELECT * FROM Bookings;
@@ -31,6 +33,9 @@ VALUES (:occupied_rooms_input, :empty_rooms_input, :has_facilities_input);
 INSERT INTO RoomTypes (type_name, num_beds, num_baths, is_haunted, price_per_night)
 VALUES (:type_name_input, :num_beds_input, :num_baths_input, :is_haunted_input, :price_per_night_input);
 
+INSERT INTO FloorsToRoomTypes (floor_id, room_type_id)
+VALUES (:floor_id_input, :room_type_id_input);
+
 INSERT INTO Rooms (room_type_id, floor_id, is_occupied, num_occupants)
 VALUES (:room_type_id_inpyt, :floor_id_input, :is_occupied_input, :num_occupants_input);
 
@@ -41,6 +46,10 @@ VALUES (:customer_id_input, :room_id_input, :check_in_input, :check_out_input);
 -- UPDATE Queries
 --
 
+--Querie to remove relationship by setting FKs to NULL
+UPDATE FloorsToRoomTypes
+SET floor_id = Null, room_type_id = Null
+WHERE floor_id = :floor_id_input AND room_type_id = :room_type_id_input;
 
 --
 -- DELETE Queries
