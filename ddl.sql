@@ -46,13 +46,11 @@ CREATE OR REPLACE TABLE `FloorToRoomTypes` (
 
 CREATE OR REPLACE TABLE `Rooms`(
 	`id` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
-	`room_type_id` int(11) NOT NULL,
-	`floor_id` int(11) NOT NULL,
+	`floor_to_room_type_id` int(11) NOT NULL,
 	`is_occupied` tinyint(1) DEFAULT 0 NOT NULL,
 	`num_occupants` int(11),
 	PRIMARY KEY(`id`),
-	FOREIGN KEY(`room_type_id`) REFERENCES  `RoomTypes`(`id`),
-	FOREIGN KEY(`floor_id`) REFERENCES  `Floors`(`id`)
+	FOREIGN KEY(`floor_to_room_type_id`) REFERENCES  `FloorToRoomTypes`(`floor_id`, `room_type_id`)
 );
 
 
@@ -65,14 +63,6 @@ CREATE OR REPLACE TABLE `Bookings`(
 	PRIMARY KEY(`id`),
 	FOREIGN KEY(`customer_id`) REFERENCES  `Customers`(`id`),
 	FOREIGN KEY(`room_id`) REFERENCES  `Rooms`(`id`)
-);
-
-CREATE OR REPLACE TABLE `BookingsToRoomTypes`(
-	`booking_id` int(11),
-	`room_type_id` int(11),
-	PRIMARY KEY (`booking_id`, `room_type_id`),
-	FOREIGN KEY (`booking_id`) REFERENCES `Bookings`(`id`),
-	FOREIGN KEY (`room_type_id`) REFERENCES `RoomTypes`(`id`)
 );
 
 --
@@ -109,11 +99,6 @@ INSERT INTO Bookings (customer_id, room_id, check_in, check_out)
 VALUES ((SELECT id FROM Customers WHERE name = "Jack Torrance"), (SELECT id FROM Rooms WHERE num_occupants = 3), '1977-11-20', '1977-12-08'),
 ((SELECT id FROM Customers WHERE name = "Dick Hallorann"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_id = 2), '1977-11-01', '1977-11-21'),
 ((SELECT id FROM Customers WHERE name = "Louise Grady"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_id = 3), '1960-01-01', '2023-01-01');
-
-INSERT INTO BookingsToFloorTypes (booking_id, floor_type_id)
-VALUES (1,1),
-(1,2),
-(2,2);
 
 
 SET FOREIGN_KEY_CHECKS = 1;
