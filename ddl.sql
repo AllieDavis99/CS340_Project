@@ -94,6 +94,11 @@ VALUES("Suite", 2, 2, true, 209.25),
 ("Queen", 1, 1, false, 156.97),
 ("Economy", 1, 1, false, 79.24);
 
+INSERT INTO FloorToRoomTypes (floor_id, room_type_id)
+VALUES(1,1),
+(1,2),
+(2,3);
+
 INSERT INTO Rooms (room_type_id, floor_id, is_occupied, num_occupants)
 VALUES((SELECT id FROM RoomTypes WHERE type_name = "Suite"), 1, true, 3),
 ((SELECT id FROM RoomTypes WHERE type_name = "Queen"), 1, false, 0),
@@ -104,6 +109,11 @@ INSERT INTO Bookings (customer_id, room_id, check_in, check_out)
 VALUES ((SELECT id FROM Customers WHERE name = "Jack Torrance"), (SELECT id FROM Rooms WHERE num_occupants = 3), '1977-11-20', '1977-12-08'),
 ((SELECT id FROM Customers WHERE name = "Dick Hallorann"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_id = 2), '1977-11-01', '1977-11-21'),
 ((SELECT id FROM Customers WHERE name = "Louise Grady"), (SELECT id FROM Rooms WHERE num_occupants = 1 and floor_id = 3), '1960-01-01', '2023-01-01');
+
+INSERT INTO BookingsToFloorTypes (booking_id, floor_type_id)
+VALUES (1,1),
+(1,2),
+(2,2);
 
 
 SET FOREIGN_KEY_CHECKS = 1;
