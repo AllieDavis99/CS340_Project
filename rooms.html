@@ -114,7 +114,13 @@
                             <option value="1" selected>yes</option>
                             <option value="2" selected>no</option>
                             </select>
-                    <label> Number of Occupants </label> <input type="text" name="num_occupants">
+                    <label> Number of Occupants </label><select name="num_occupants">
+                        <option value="0">NULL</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
                 </fieldset>
                 <input class="btn" type="submit" id="addRoom" value="Add Room">
                 <input class="btn" type="button" value="cancel" onClick="browseRooms()">
