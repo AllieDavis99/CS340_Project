@@ -54,11 +54,11 @@
         <table border="1" cellpadding="5">
             <tr>
                 <th><a href="#" onClick="newRoom()">New</a></th>
-                <th>id</th>
-                <th>room_type_id</th>
-                <th>floor_id</th>
-                <th>is_occupied</th>
-                <th>num_occupants</th>
+                <th>ID</th>
+                <th>Room Type</th>
+                <th>Floor</th>
+                <th>Is Occupied</th>
+                <th>Number of Occupants</th>
             </tr>
             <tr>
                 <td><a href="#" onclick="deleteRoom('this.roomID')">Delete</a></td>
@@ -92,12 +92,24 @@
             <form method="POST" id="addRoom">
                 <legend><strong>Add Room</strong></legend>
                 <fieldset class="fields">
-                    <label> is_occupied </label> <select name="is_occupied">
+                    <label> Room Type</label><select name="roomType">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">Suite</option>
+                        <option value="2">Queen</option>
+                        <option value="3" selected>Economy</option>
+                        </select>
+                    <label>Floor</label><select name="floor">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        </select>
+                    <label> Is Occupied </label> <select name="is_occupied">
                             <option value="0">&nbsp;</option>
                             <option value="1" selected>yes</option>
                             <option value="2" selected>no</option>
                             </select>
-                    <label> num_occupants </label> <input type="text" name="num_occupants">
+                    <label> Number of Occupants </label> <input type="text" name="num_occupants">
                 </fieldset>
                 <input class="btn" type="submit" id="addRoom" value="Add Room">
                 <input class="btn" type="button" value="cancel" onClick="browseRooms()">
