@@ -49,36 +49,28 @@
         <p><a href="#" onClick="showAll()">Display all forms</a> </p>
         <table border="1" cellpadding="5">
             <tr>
-                <th><a href="#" onClick="newBooking()">New</a></th>
+                <th><a href="#" onClick="newRoomTypePerFloor()">New</a></th>
                     <th>ID</th>
-                    <th>customer_id</th>
-                    <th>room_id</th>
-                    <th>check_in</th>
-                    <th>check_out</th>
+                    <th>floor_id</th>
+                    <th>room_type_id</th>
             </tr>
             <tr>
                 <td></td>
                 <td>1</td>
                 <td>1</td>
-                <td>2</td>
-                <td>1977-11-20</td>
-                <td>1977-12-08</td>
+                <td>1</td>
             </tr>
             <tr>
                 <td></td>
                 <td>2</td>
+                <td>1</td>
                 <td>2</td>
-                <td>3</td>
-                <td>1977-11-01</td>
-                <td>1977-11-21</td>
             </tr>
             <tr>
                 <td></td>
                 <td>3</td>
                 <td>2</td>
-                <td>1</td>
-                <td>1960-01-01</td>
-                <td>2023-01-01</td>
+                <td>3</td>
             </tr>
         </table>
         </div>
@@ -86,28 +78,25 @@
 
         <p>&nbsp;</p>
         <div id="insert">
-            <form method="POST" id="addBooking">
+            <form method="POST" id="addFloorToRoomType">
                 <legend><strong>Add Booking</strong></legend>
                 <fieldset class="fields">
-                    <label> Booking id</label> <select name="Booking_id">
-                        <option value="0">&nbsp;</option>
-                        <option value="1" selected>1</option>
-                        <option value="2" selected>2</option>
-                        <option value="3" selected>3</option>
-                        <option value="4" selected>4</option>
-                    </select>
-                    <label> room id</label> <select name="room_id">
+                    <label> Floor ID</label> <select name="Booking_id">
                         <option value="0">&nbsp;</option>
                         <option value="1" selected>1</option>
                         <option value="2" selected>2</option>
                         <option value="3" selected>3</option>
                     </select>
-                    <label> check_in </label> <input type="text" name="check_in">
-                    <label> check_out </label> <input type="text" name="check_out">
+                    <label> Room Type ID</label> <select name="room_id">
+                        <option value="0">&nbsp;</option>
+                        <option value="1" selected>1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3" selected>3</option>
+                    </select>
                 </fieldset>
 
                 <input class="btn" type="submit" id="addBooking" value="Add Booking">
-                <input class="btn" type="button" value="cancel" onClick="browseBookings()">
+                <input class="btn" type="button" value="cancel" onClick="browseFloorToRoomTypes()">
             </form>
         </div><!-- insert -->
 
