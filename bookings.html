@@ -51,15 +51,15 @@
             <tr>
                 <th><a href="#" onClick="newBooking()">New</a></th>
                     <th>ID</th>
-                    <th>customer_id</th>
-                    <th>room_id</th>
-                    <th>check_in</th>
-                    <th>check_out</th>
+                    <th>Customer Name</th>
+                    <th>Room ID</th>
+                    <th>Check In Date</th>
+                    <th>Check Out Date</th>
             </tr>
             <tr>
                 <td></td>
                 <td>1</td>
-                <td>1</td>
+                <td>Jack Torrance</td>
                 <td>2</td>
                 <td>1977-11-20</td>
                 <td>1977-12-08</td>
@@ -67,7 +67,7 @@
             <tr>
                 <td></td>
                 <td>2</td>
-                <td>2</td>
+                <td>Dick Hallorann</td>
                 <td>3</td>
                 <td>1977-11-01</td>
                 <td>1977-11-21</td>
@@ -75,7 +75,7 @@
             <tr>
                 <td></td>
                 <td>3</td>
-                <td>2</td>
+                <td>Louise Grady</td>
                 <td>1</td>
                 <td>1960-01-01</td>
                 <td>2023-01-01</td>
@@ -89,12 +89,11 @@
             <form method="POST" id="addBooking">
                 <legend><strong>Add Booking</strong></legend>
                 <fieldset class="fields">
-                    <label> Booking id</label> <select name="Booking_id">
-                        <option value="0">&nbsp;</option>
-                        <option value="1" selected>1</option>
-                        <option value="2" selected>2</option>
-                        <option value="3" selected>3</option>
-                        <option value="4" selected>4</option>
+                    <label> Customer Name</label> <select name="customer_name">
+                        <option value="">&nbsp;</option>
+                        <option value="Jack Torrance" selected>Jack Torrance</option>
+                        <option value="Dick Hallorann" selected>Dick Hallorann</option>
+                        <option value="Louise Grady" selected>Louise Grady</option>
                     </select>
                     <label> room id</label> <select name="room_id">
                         <option value="0">&nbsp;</option>
