@@ -1,13 +1,9 @@
 <html>
 <head>
-    <title>RoomTypes</title>
+    <title>Room Types Per Floor</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script language="JavaScript">
         function showform(dowhat) {
-            /*
-            * four DIVS: browse, insert, update, delete
-            * this function sets one visible the others not
-            */
             if (dowhat == 'insert') {
                 document.getElementById('browse').style.display = 'none';
                 document.getElementById('insert').style.display = 'block';
@@ -30,15 +26,15 @@
                 document.getElementById('delete').style.display = 'none';
             }
         }
-        function newRoomType() { showform('insert'); }
-        function deleteRoomType(pid) { showform('delete'); }
-        function browseRoomType() { showform('browse'); }
+        function newBooking() { showform('insert'); }
+        function deleteBooking(pid) { showform('delete'); }
+        function browseBooking() { showform('browse'); }
         function showAll() { showform('all'); }
     </script>
 </head>
 
-<body onload="browseRoomTypes()">
-    <h1>Room Types</h1>
+<body onload="browseBookings()">
+    <h1>Bookings</h1>
 
     [ <a href="index.html">Home</a>
     | <a href="customers.html">Customers</a>
@@ -53,40 +49,36 @@
         <p><a href="#" onClick="showAll()">Display all forms</a> </p>
         <table border="1" cellpadding="5">
             <tr>
-                <th><a href="#" onClick="newRoomType()">New</a></th>
-                <th>ID</th>
-                <th>type_name</th>
-                <th>num_beds</th>
-                <th>num_baths</th>
-                <th>is_haunted</th>
-                <th>price_per_night</th>
+                <th><a href="#" onClick="newBooking()">New</a></th>
+                    <th>ID</th>
+                    <th>customer_id</th>
+                    <th>room_id</th>
+                    <th>check_in</th>
+                    <th>check_out</th>
             </tr>
             <tr>
                 <td></td>
                 <td>1</td>
-                <td>Suite</td>
+                <td>1</td>
                 <td>2</td>
-                <td>2</td>
-                <td>true</td>
-                <td>209.25</td>
+                <td>1977-11-20</td>
+                <td>1977-12-08</td>
             </tr>
             <tr>
                 <td></td>
                 <td>2</td>
-                <td>Queen</td>
-                <td>1</td>
-                <td>1</td>
-                <td>false</td>
-                <td>156.97</td>
+                <td>2</td>
+                <td>3</td>
+                <td>1977-11-01</td>
+                <td>1977-11-21</td>
             </tr>
             <tr>
                 <td></td>
                 <td>3</td>
-                <td>Economy</td>
+                <td>2</td>
                 <td>1</td>
-                <td>1</td>
-                <td>false</td>
-                <td>79.24</td>
+                <td>1960-01-01</td>
+                <td>2023-01-01</td>
             </tr>
         </table>
         </div>
@@ -94,32 +86,38 @@
 
         <p>&nbsp;</p>
         <div id="insert">
-            <form method="POST" id="addRoomType">
-                <legend><strong>Add Room Type</strong></legend>
+            <form method="POST" id="addBooking">
+                <legend><strong>Add Booking</strong></legend>
                 <fieldset class="fields">
-                    <label> name</label> <select name="type_name">
+                    <label> Booking id</label> <select name="Booking_id">
                         <option value="0">&nbsp;</option>
-                        <option value="1" selected>Ecnomy</option>
-                        <option value="2" selected>Queen</option>
-                        <option value="3" selected>Suite</option>
+                        <option value="1" selected>1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4" selected>4</option>
                     </select>
-                    <label> num_beds </label> <input type="text" name="num_beds">
-                    <label> num_baths </label> <input type="text" name="num_baths">
-                    <label> is_haunted </label> <select name="type_name">
-                            <option value="0">&nbsp;</option>
-                            <option value="1" selected>yes</option>
-                            <option value="3" selected>no</option>
+                    <label> room id</label> <select name="room_id">
+                        <option value="0">&nbsp;</option>
+                        <option value="1" selected>1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3" selected>3</option>
                     </select>
-                    <label> price_per_night</label> <input type="text" name ="price_per_night" />
+                    <label> check_in </label> <input type="text" name="check_in">
+                    <label> check_out </label> <input type="text" name="check_out">
                 </fieldset>
 
-                <input class="btn" type="submit" id="addRoomTypes" value="Add Room Type">
-                <input class="btn" type="button" value="cancel" onClick="browseRoomTypes()">
+                <input class="btn" type="submit" id="addBooking" value="Add Booking">
+                <input class="btn" type="button" value="cancel" onClick="browseBookings()">
             </form>
         </div><!-- insert -->
-      
+
 
 </body>
 </html>
+
+
+
+
+
 
 
