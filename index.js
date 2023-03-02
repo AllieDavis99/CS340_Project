@@ -35,6 +35,40 @@ app.get('/customers.hbs', function (req, res) {
     })
 });
 
+app.get('/bookings.hbs', function (req, res) {
+    let booking_get_query = "SELECT * FROM Bookings;";
+    db.pool.query(booking_get_query, function (error, rows, fields) {
+        res.render('bookings', { data: rows })
+    })
+});
+
+app.get('/rooms.hbs', function (req, res) {
+    let rooms_get_query = "SELECT * FROM Rooms;";
+    db.pool.query(rooms_get_query, function (error, rows, fields) {
+        res.render('rooms', { data: rows })
+    })
+});
+
+app.get('/roomTypes.hbs', function (req, res) {
+    let roomType_get_query = "SELECT * FROM RoomTypes;";
+    db.pool.query(roomType_get_query, function (error, rows, fields) {
+        res.render('roomTypes', { data: rows })
+    })
+});
+
+app.get('/floors.hbs', function (req, res) {
+    let floors_get_query = "SELECT * FROM Floors;";
+    db.pool.query(floors_get_query, function (error, rows, fields) {
+        res.render('floors', { data: rows })
+    })
+});
+
+app.get('/roomTypesPerfloor.hbs', function (req, res) {
+    let roomTypesPerfloor_get_query = "SELECT * FROM Floors;";
+    db.pool.query(roomTypesPerfloor_get_query, function (error, rows, fields) {
+        res.render('roomTypesPerfloor', { data: rows })
+    })
+});
 
 app.listen(port, function(){
     console.log('Server started at http://localhost:' + port);
