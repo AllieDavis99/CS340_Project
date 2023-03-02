@@ -64,10 +64,26 @@ app.get('/floors.hbs', function (req, res) {
 });
 
 app.get('/roomTypesPerfloor.hbs', function (req, res) {
-    let roomTypesPerfloor_get_query = "SELECT * FROM Floors;";
+    let roomTypesPerfloor_get_query = "SELECT * FROM FloorToRoomTypes;";
+    let floorID_get_query = "SELECT * FROM Floors"
     db.pool.query(roomTypesPerfloor_get_query, function (error, rows, fields) {
-        res.render('roomTypesPerfloor', { data: rows })
+        let RTPF = rows;
+        db.pool.query(floorID_get_query, (error, rows, fields) => {
+            let FloorIDS = rows;
+            let floormap = {}
+            FloorIDS.map(Floors => {
+                let id = parseInt(Floors.id, 10)
+                floormap[id] = Floors["id"]
+        
+        })
+
+        RTPF = RTPF.map(FloorToRoomTypes => {
+            return Object.assign(FloorToRoomTypes, { floor_id: floormap[FloorToRoomTypes.floor_id] })
+        })
+            return res.render('roomTypesPerfloor', { data: RTPF, FloorIDS: FloorIDS });
+
     })
+})
 });
 
 app.listen(port, function(){
