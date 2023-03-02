@@ -1,0 +1,48 @@
+<table>
+    <thead>
+        <caption>Bookings</caption>
+        <tr>
+
+            <th>ID</th>
+            <th>Customer ID</th>
+            <th>Room ID</th>
+            <th>Check In Date</th>
+            <th>Check Out Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.customer_id}}</td>
+            <td>{{this.room_id}}</td>
+            <td>{{this.check_in}}</td>
+            <td>{{this.check_out}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h1>Add Booking:</h1>
+<form id="addBooking" action="/bookings.hbs" method="post">
+    <label for="input-customer_id">Customer ID: </label>
+    <select name="input-customer" id="input-customer">
+        <option value="">Select a Customer</option>
+        {{#each customers}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    <label for="input-room_id">Room ID: </label>
+    <select name="input-room" id="input-room">
+        <option value="">Select a Room</option>
+        {{#each rooms}}
+        <option value="{{this.id}}">{{this.id}}</option>
+        {{/each}}
+    </select>
+    <label> Check In Date </label> <input type="date" name="check_in">
+    <label> Check Out Date </label> <input type="date" name="check_out">
+    <div class="form-group">
+        <input class="btn" type="submit" id="addBooking" value="Add Booking">
+    </div>
+</form>

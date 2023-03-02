@@ -1,0 +1,63 @@
+<table>
+    <thead>
+        <caption>Floors</caption>
+        <tr>
+
+            <th>ID</th>
+            <th>Occupied Rooms</th>
+            <th>Empty Rooms</th>
+            <th>Has Facilities</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.occupied_rooms}}</td>
+            <td>{{this.empty_rooms}}</td>
+            <td>{{this.has_facilities}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h1>Add Floor:</h1>
+<form id="addFloor" action="/floors.hbs" method="post">
+    <label> Occupied Rooms</label> <select name="occupied_rooms">
+        <option value="0">&nbsp;</option>
+        <option value="1" selected>1</option>
+        <option value="2" selected>2</option>
+        <option value="3" selected>3</option>
+        <option value="4" selected>4</option>
+        <option value="5" selected>5</option>
+        <option value="6" selected>6</option>
+        <option value="7" selected>7</option>
+        <option value="8" selected>8</option>
+        <option value="9" selected>9</option>
+        <option value="10" selected>10</option>
+        <option value="11" selected>11</option>
+    </select>
+    <label> Empty Rooms</label> <select name="empty_rooms">
+        <option value="0">&nbsp;</option>
+        <option value="1" selected>1</option>
+        <option value="2" selected>2</option>
+        <option value="3" selected>3</option>
+        <option value="4" selected>4</option>
+        <option value="5" selected>5</option>
+        <option value="6" selected>6</option>
+        <option value="7" selected>7</option>
+        <option value="8" selected>8</option>
+        <option value="9" selected>9</option>
+        <option value="10" selected>10</option>
+        <option value="11" selected>11</option>
+    </select>
+    <label> Has Facilities</label> <select name="has_facilities">
+        <option value="0">&nbsp;</option>
+        <option value="1" selected>yes</option>
+        <option value="2" selected>no</option>
+    </select>
+    <div class="form-group">
+        <input class="btn" type="submit" id="addFloor" value="Add Floor">
+    </div>
+</form>

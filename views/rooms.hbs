@@ -1,0 +1,33 @@
+<table>
+    <thead>
+        <caption>Rooms</caption>
+        <tr>
+
+            <th>ID</th>
+            <th>Room Type</th>
+            <th>Floor</th>
+            <th>Is Occupied</th>
+            <th>Number of Occupants</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.floor_to_room_type_id}}</td>
+            <td>{{this.is_occupied}}</td>
+            <td>{{this.num_occupants}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h1>Add Room:</h1>
+<form id="addRoom" action="/rooms.hbs" method="post">
+    <label> Is Occupied? </label> <input type="text" name="is_occupied">
+    <label> number of occupants </label> <input type="text" name="num_occupants">
+    <div class="form-group">
+        <input class="btn" type="submit" id="addRooms" value="Add Room">
+    </div>
+</form>
