@@ -27,11 +27,44 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
 });
 
+//
+//CUSTOMERS ROUTES
+//
 
+//GET ROUTES
 app.get('/customers.hbs', function (req, res) {
     let customer_get_query = "SELECT * FROM Customers;";
     db.pool.query(customer_get_query, function (error, rows, fields) {
         res.render('customers', {data: rows})
+    })
+});
+
+//POST ROUTES
+app.post('/add-customer-ajax', function(req, res){
+    let data = req.body;
+
+    let customer_insert_query = `INSERT INTO Customers (name, phone_number, address, email) VALUES("${data.name}", "${data.phone_number}", "${data.address}", "${data.email}");`;
+    db.pool.query(customer_insert_query, function(error, rows, fields){
+        
+        if(error){
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else{
+            query2 = "SELECT * FROM Customers;";
+            db.pool.query(query2, function(error, rows, fields){
+
+                if (error){
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+
+                else{
+                    res.send(rows);
+                }
+            })
+        }
     })
 });
 

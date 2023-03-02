@@ -1,4 +1,4 @@
-<table>
+<table id="customer-table">
     <thead>
     <caption>Customers</caption>
     <tr>
@@ -25,21 +25,23 @@
 </table>
 
 <h1>Add Customer:</h1>
-<form id="addCustomer" action="/customers" method="post">
+<form id="addCustomerForm">
     <div class="form-group">
-        name: <input type="text" name="name"><br>
+        name: <input type="text" id="name" name="name"><br>
     </div>
     <div class="form-group">
-        Phone Number: <input type="text" name="phone_number"><br>
+        Phone Number: <input type="text" id="phone_number" name="phone_number"><br>
     </div>
     <div class="form-group">
-        Address: <input type="text" name="address">
+        Address: <input type="text" id="address" name="address">
         <br>
     </div>
     <div class="form-group">
-        Email: <input type="text" name="email"><br>
+        Email: <input type="text" id="email" name="email"><br>
     </div>
     <div class="form-group">
-        <input class="btn" type="submit" id="addCustomer" value="Add Customer">
+        <input class="btn" type="submit" id="addCustomerButton" value="Add Customer">
     </div>
 </form>
+
+<script src="js/add_customer.js"></script>
