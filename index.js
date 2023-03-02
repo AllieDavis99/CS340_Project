@@ -29,8 +29,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/customers.hbs', function (req, res) {
-    let customer_get_query = "SELECT * FROM customers;";
-    console.log(db.pool);
+    let customer_get_query = "SELECT * FROM Customers;";
     db.pool.query(customer_get_query, function (error, rows, fields) {
         res.render('customers', {data: rows})
     })
