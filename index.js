@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/customers', function (req, res) {
-    let query1 = "SELECT * FROM customers";
+    let query1 = "SELECT * FROM customers;";
     db.pool.query(query1, function (error, rows, fields) {
         res.render('customers', {data:rows})
     })
