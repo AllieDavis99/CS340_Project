@@ -9,7 +9,7 @@ app.use(express.static('public'))
 
 const port = process.env.PORT || 8932;
 
-var db = require('./database/db_connector')
+var db = require('./database/db_connector.js')
 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
@@ -21,18 +21,18 @@ app.set('view engine', '.hbs');
 //
 //ROUTES
 //
+
+
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-//
-//CUSTOMERS
-//
-console.log('outside second get method')
+
 app.get('/customers.hbs', function (req, res) {
-    let query1 = "SELECT * FROM customers;";
-    db.pool.query(query1, function (error, rows, fields) {
-        res.render('customers.hbs', {data:rows})
+    let customer_get_query = "SELECT * FROM customers;";
+    console.log(db.pool);
+    db.pool.query(customer_get_query, function (error, rows, fields) {
+        res.render('customers', {data: rows})
     })
 });
 

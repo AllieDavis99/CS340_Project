@@ -1,12 +1,18 @@
 <table>
+    <thead>
     <caption>Customers</caption>
     <tr>
+        
         <th>ID</th>
         <th>Name</th>
         <th>Phone Number</th>
         <th>Address</th>
         <th>Email</th>
     </tr>
+    </thead>
+
+    <tbody>
+    {{#each data}}    
     <tr>
         <td>{{this.id}}</td>
         <td>{{this.name}}</td>
@@ -14,6 +20,8 @@
         <td>{{this.address}}</td>
         <td>{{this.email}}</td>
     </tr>
+    {{/each}}
+    </tbody>
 </table>
 
 <h1>Add Customer:</h1>
