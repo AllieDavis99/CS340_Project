@@ -1,0 +1,37 @@
+<table>
+    <caption>Customers</caption>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Email</th>
+    </tr>
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.phone_number}}</td>
+        <td>{{this.address}}</td>
+        <td>{{this.email}}</td>
+    </tr>
+</table>
+
+<h1>Add Customer:</h1>
+<form id="addCustomer" action="/customers" method="post">
+    <div class="form-group">
+        name: <input type="text" name="name"><br>
+    </div>
+    <div class="form-group">
+        Phone Number: <input type="text" name="phone_number"><br>
+    </div>
+    <div class="form-group">
+        Address: <input type="text" name="address">
+        <br>
+    </div>
+    <div class="form-group">
+        Email: <input type="text" name="email"><br>
+    </div>
+    <div class="form-group">
+        <input class="btn" type="submit" id="addCustomer" value="Add Customer">
+    </div>
+</form>
