@@ -23,7 +23,7 @@ add_customer_form.addEventListener("submit", function(e){
 
     //AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-customer-ajax", true);
+    xhttp.open("POST", "/customers.hbs", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     xhttp.onreadystatechange = () => {
@@ -49,7 +49,6 @@ add_customer_form.addEventListener("submit", function(e){
 //creates a row for Customers table
 addRowToTable = (data) => {
     let currentTable = document.getElementById("customers-table");
-    let newRowIndex = currentTable.rows.length;
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
