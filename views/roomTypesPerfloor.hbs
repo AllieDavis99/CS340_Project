@@ -22,7 +22,19 @@
 
 <h1>Add Floor:</h1>
 <form id="addRoomTypePerFloor" action="/roomTypesPerfloor.hbs" method="post">
-  
+
+    <select name="input-floor_id" id="input-floor_id">
+        <option value="">Select a floor</option>
+        {{#each floors}}
+        <option value="{{this.id}}">{{this.id}}</option>
+        {{/each}}
+    </select>
+    <select name="input-room_type_id" id="input-room_type_id">
+        <option value="">Select a floor</option>
+        {{#each roomTypes}}
+        <option value="{{this.id}}">{{this.id}}</option>
+        {{/each}}
+    </select>
     <div class="form-group">
         <input class="btn" type="submit" id="addRoomTypePerFloor" value="Add">
     </div>
