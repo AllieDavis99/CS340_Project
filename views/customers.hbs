@@ -1,3 +1,7 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="application/json" src ="./js/delete_customer.js"></script>
+<script type="application/json" src="./js/add_customer.js"></script>
+
 <table id="customer-table">
     <thead>
     <caption>Customers</caption>
@@ -13,12 +17,13 @@
 
     <tbody>
     {{#each data}}    
-    <tr>
+    <tr data-value={{this.id}}>
         <td>{{this.id}}</td>
         <td>{{this.name}}</td>
         <td>{{this.phone_number}}</td>
         <td>{{this.address}}</td>
         <td>{{this.email}}</td>
+        <td><button onClick="deleteCustomer({{this.id}})">Delete</button></td>
     </tr>
     {{/each}}
     </tbody>
@@ -43,5 +48,3 @@
         <input class="btn" type="submit" id="addCustomerButton" value="Add Customer">
     </div>
 </form>
-
-<script type="application/json" src="./js/add_customer.js"></script>
