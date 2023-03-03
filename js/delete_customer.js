@@ -1,3 +1,4 @@
+
 function deleteCustomer(customerID){
     let link = '/delete_customer/';
     let data = {
@@ -13,7 +14,7 @@ function deleteCustomer(customerID){
             deleteRow(customerID);
         }
     });
-}
+};
 
 function deleteRow(customerID){
     let table = document.getElementById("customer-table");
@@ -23,4 +24,4 @@ function deleteRow(customerID){
             break;
         }
     }
-}
+};

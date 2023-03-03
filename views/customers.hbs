@@ -23,7 +23,7 @@
         <td>{{this.phone_number}}</td>
         <td>{{this.address}}</td>
         <td>{{this.email}}</td>
-        <td><button onClick="deleteCustomer({{this.id}})">Delete</button></td>
+        <td><button id="customerDeleteButton" onclick="deleteCustomer({{this.id}})">Delete</button></td>
     </tr>
     {{/each}}
     </tbody>
@@ -48,3 +48,33 @@
         <input class="btn" type="submit" id="addCustomerButton" value="Add Customer">
     </div>
 </form>
+
+<script>function deleteCustomer(customerID){
+    let data = {
+        id: customerID
+    };
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('DELETE', '/customers.hbs', true);
+    xhttp.setRequestHeader("Content-type", 'application/json');
+    xhttp.onreadystatechange = () => {
+        if (xhttp.readyState == 4 && xhttp.status == 204){
+            deleteRow(customerID);
+        }
+
+        else if (xhttp.readyState == 4 && xhttp.status != 204){
+            console.log("there was an error with the input")
+        }
+    }
+    xhttp.send(JSON.stringify(data));
+};
+
+function deleteRow(customerID){
+    let table = document.getElementById("customer-table");
+    for (let i = 0, row; row = table.rows[i]; i++){
+        if (table.rows[i].getAttribute("data-value") == personID){
+            table.deleteRow(i);
+            break;
+        }
+    }
+};</script>

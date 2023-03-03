@@ -69,10 +69,10 @@ app.post('/customers.hbs', function(req, res){
 });
 
 //DELETE ROUTE
-app.delete('/delete-customer/', function(req, res, next){
+app.delete('/customers.hbs', function(req, res, next){
     let data = req.body;
     let personID = parseInt(data.id);
-    let delete_customer_query = `DELETE FROM Customers WHERE id = ?`;
+    let delete_customer_query = `DELETE FROM Customers WHERE id = ${personID};`;
 
     db.pool.query(delete_customer_query, [customerID], function(error, rows, fields){
         if (error){
