@@ -48,3 +48,21 @@
         <input class="btn" type="submit" id="addCustomerButton" value="Add Customer">
     </div>
 </form>
+
+
+<h2>Updating A Customer</h2>
+<form id="update-customer">
+
+    <label for="input-name">name: </label>
+    <select name="input-name" id="mySelect">
+        <option value="test">Select a name</option>
+        {{#each data}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-phone_number">phone_number: </label>
+     <input type="text" id="input-phone_number-update" name="input-phone_number">
+     <input type="submit">
+
+</form>
