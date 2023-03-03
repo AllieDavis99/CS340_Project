@@ -68,6 +68,24 @@ app.post('/customers.hbs', function(req, res){
     })
 });
 
+//DELETE ROUTE
+app.delete('/delete-customer/', function(req, res, next){
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let delete_customer_query = `DELETE FROM Customers WHERE id = ?`;
+
+    db.pool.query(delete_customer_query, [customerID], function(error, rows, fields){
+        if (error){
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else{
+            res.sendStatus(204);
+        }
+    })
+});
+
 app.get('/bookings.hbs', function (req, res) {
     let booking_get_query = "SELECT * FROM Bookings;";
     db.pool.query(booking_get_query, function (error, rows, fields) {
