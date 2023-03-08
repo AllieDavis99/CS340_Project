@@ -1,33 +1,71 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="application/json" src ="./js/delete_customer.js"></script>
 <script type="application/json" src="./js/add_customer.js"></script>
+
 
 <table id="customer-table">
     <thead>
-    <caption>Customers</caption>
-    <tr>
-        
-        <th>ID</th>
-        <th>Name</th>
-        <th>Phone Number</th>
-        <th>Address</th>
-        <th>Email</th>
-    </tr>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
     </thead>
 
     <tbody>
-    {{#each data}}    
-    <tr data-value={{this.id}}>
-        <td>{{this.id}}</td>
-        <td>{{this.name}}</td>
-        <td>{{this.phone_number}}</td>
-        <td>{{this.address}}</td>
-        <td>{{this.email}}</td>
-        <td><button id="customerDeleteButton" onclick="deleteCustomer({{this.id}})">Delete</button></td>
-    </tr>
-    {{/each}}
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td>{{this.id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.phone_number}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.email}}</td>
+            <td><button id="delete-customer" onclick="deleteCustomer({{this.id}})">Delete</button></td>
+
+        </tr>
+        {{/each}}
+
     </tbody>
 </table>
+
+<script>
+    function deleteCustomer(customerID) {
+        let data = {
+            id: customerID
+        };
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "/delete-customer-ajax", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 204) {
+
+                deleteRow(customerID);
+
+            }
+            else if (xhttp.readyState == 4 && xhttp.status != 204) {
+                console.log("There was an error with the input.")
+            }
+        }     // Send the request and wait for the response
+        xhttp.send(JSON.stringify(data));
+    }
+
+    function deleteRow(customerID) {
+        let table = document.getElementById("customer-table");
+        for (let i = 0, row; row = table.rows[i]; i++) {
+            if (table.rows[i].getAttribute("data-value") == customerID) {
+                table.deleteRow(i);
+                break;
+            }
+        }
+    };
+    </script>
+        
+
+
 
 <h1>Add Customer:</h1>
 <form id="addCustomerForm" action="/customers.hbs" method="post">
@@ -50,6 +88,7 @@
 </form>
 
 
+
 <h2>Updating A Customer</h2>
 <form id="update-customer">
 
@@ -62,37 +101,88 @@
     </select>
 
     <label for="input-phone_number">phone_number: </label>
-     <input type="text" id="input-phone_number-update" name="input-phone_number">
-     <input type="submit">
+    <input type="text" id="input-phone_number-update" name="input-phone_number">
+    <input type="submit">
 
 </form>
 
-<script>function deleteCustomer(customerID){
-    let data = {
-        id: customerID
-    };
+<script>
+    let updateCustomerForm = document.getElementById('update-customer');
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.open('DELETE', '/customers.hbs', true);
-    xhttp.setRequestHeader("Content-type", 'application/json');
-    xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 204){
-            deleteRow(customerID);
+    // Modify the objects we need
+    updateCustomerForm.addEventListener("submit", function (e) {
+        console.log("updating")
+
+        // Prevent the form from submitting
+        e.preventDefault();
+
+        // Get form fields we need to get data from
+        let inputName = document.getElementById("mySelect");
+        let inputPhone = document.getElementById("input-phone_number-update");
+
+        // Get the values from the form fields
+        let nameValue = inputName.value;
+        let phoneValue = inputPhone.value;
+
+        // currently the database table for bsg_people does not allow updating values to NULL
+        // so we must abort if being bassed NULL for homeworld
+
+        if (isNaN(phoneValue)) {
+            return;
         }
 
-        else if (xhttp.readyState == 4 && xhttp.status != 204){
-            console.log("there was an error with the input")
+
+        // Put our data we want to send in a javascript object
+        let data = {
+            name: nameValue,
+            phone: phoneValue,
+        }
+
+        // Setup our AJAX request
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("PUT", "/put-customer-ajax", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+
+        // Tell our AJAX request how to resolve
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+                // Add the new data to the table
+                updateRow(xhttp.response, fullNameValue);
+
+            }
+            else if (xhttp.readyState == 4 && xhttp.status != 200) {
+                console.log("There was an error with the input.")
+            }
+        }
+
+        // Send the request and wait for the response
+        xhttp.send(JSON.stringify(data));
+
+    })
+
+
+    function updateRow(data, customerID) {
+        let parsedData = JSON.parse(data);
+
+        let table = document.getElementById("customer-table");
+
+        for (let i = 0, row; row = table.rows[i]; i++) {
+            //iterate through rows
+            //rows would be accessed using the "row" variable assigned in the for loop
+            if (table.rows[i].getAttribute("data-value") == customerID) {
+
+                // Get the location of the row where we found the matching person ID
+                let updateRowIndex = table.getElementsByTagName("tr")[i];
+
+                // Get td of homeworld value
+                let td = updateRowIndex.getElementsByTagName("td")[3];
+
+                // Reassign homeworld to our value we updated to
+                td.innerHTML = parsedData[0].name;
+            }
         }
     }
-    xhttp.send(JSON.stringify(data));
-};
 
-function deleteRow(customerID){
-    let table = document.getElementById("customer-table");
-    for (let i = 0, row; row = table.rows[i]; i++){
-        if (table.rows[i].getAttribute("data-value") == personID){
-            table.deleteRow(i);
-            break;
-        }
-    }
-};</script>
+
+</script>

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\js",
+    "\\views"
   ],
-  "SelectedNode": "\\bookings.html",
+  "SelectedNode": "\\js\\add_customer.js",
   "PreviewInSolutionExplorer": false
 }

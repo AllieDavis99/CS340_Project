@@ -5,9 +5,9 @@ const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
-const port = process.env.PORT || 8932;
+const port = process.env.PORT || 8933;
 
 var db = require('./database/db_connector.js')
 
@@ -17,6 +17,8 @@ const { query } = require('express')
 
 app.engine('.hbs', engine({ extname: ".hbs" }));  // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs');
+
+
 
 //
 //ROUTES
@@ -61,7 +63,7 @@ app.post('/customers.hbs', function(req, res){
                 }
 
                 else{
-                    res.send(rows);
+                    res.redirect('/customers.hbs');
                 }
             })
         }
@@ -69,22 +71,47 @@ app.post('/customers.hbs', function(req, res){
 });
 
 //DELETE ROUTE
-app.delete('/customers.hbs', function(req, res, next){
+app.delete('/delete-customer-ajax/', function(req, res, next){
     let data = req.body;
-    let personID = parseInt(data.id);
-    let delete_customer_query = `DELETE FROM Customers WHERE id = ${personID};`;
+    let customerID = parseInt(data.id);
+    let delete_customer_query = `DELETE FROM Customers WHERE id = ${customerID};`;
 
     db.pool.query(delete_customer_query, [customerID], function(error, rows, fields){
         if (error){
             console.log(error);
             res.sendStatus(400);
+            
         }
 
-        else{
+        else {
+            
             res.sendStatus(204);
         }
     })
 });
+
+
+app.put('/put-customer-ajax', function (req, res, next) {
+    let data = req.body;
+    let customerID = parseInt(data.id);
+    let phone = parseInt(data.phone_number);
+
+    let queryUpdateCustomer = `UPDATE Customers SET phone_number = ? WHERE Customer.id = ?`;
+
+
+    db.pool.query(queryUpdateCustomer, [customerID, phone], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            res.send(rows);
+        }
+    })
+
+});
+
 
 app.get('/bookings.hbs', function (req, res) {
     let booking_get_query = "SELECT * FROM Bookings;";
