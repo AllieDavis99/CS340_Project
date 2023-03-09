@@ -233,7 +233,9 @@ app.get('/roomTypes.hbs', function (req, res) {
 app.post('/roomTypes.hbs', function (req, res) {
     let data = req.body;
 
-    let query1 = `INSERT INTO RoomTypes (type_name, num_beds,num_baths,is_haunted,price_per_night) VALUES("${data.type_name}", "${data.num_beds}","${data.num_baths}","${data.is_haunted}","${data.price_per_night}");`;
+    console.log(data);
+
+    let query1 = `INSERT INTO RoomTypes (type_name, num_beds, num_baths, is_haunted, price_per_night) VALUES("${data.type_name}", "${data.num_beds}","${data.num_baths}","${data.is_haunted}","${data.price_per_night}");`;
     db.pool.query(query1, function (error, rows, fields) {
 
         if (error) {

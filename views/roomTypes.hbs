@@ -37,14 +37,25 @@
 
 <h1>Add Room Type:</h1>
 <form id="addRoomType" action="/roomTypes.hbs" method="post">
-    <label> beds # </label> <input type="text" name="num_beds">
-    <label> baths # </label> <input type="text" name="num_baths">
-    <<label> is_haunted </label> <select name="type_name">
-        <option value="0">&nbsp;</option>
-        <option value="1" selected>yes</option>
-        <option value="3" selected>no</option>
+    <label>Room Type Name: </label>
+    <input type="text" name="type_name">
+
+    <label> # of Beds: </label> 
+    <input type="number" name="num_beds">
+    
+    <label> # of Baths: </label> 
+    <input type="number" name="num_baths">
+    
+    <label> is_haunted: </label> 
+    <select name="is_haunted">
+        <option value="">&nbsp;</option>
+        <option value="true" selected>yes</option>
+        <option value="false" selected>no</option>
     </select>
-    <label> price_per_night</label> <input type="text" name="price_per_night" />
+
+    <label> price_per_night: </label> 
+    <input type="number" name="price_per_night" />
+    
     <div class="form-group">
         <input class="btn" type="submit" id="addRoomType" value="Add Room Type">
     </div>
