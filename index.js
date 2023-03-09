@@ -228,6 +228,26 @@ app.post('/floors.hbs', function (req, res) {
     })
 });
 
+//DELETE
+app.delete('/delete-floor-ajax/', function(req, res, next){
+    let data = req.body;
+    let floorID = parseInt(data.id);
+    let delete_floor_query = `DELETE FROM Floors WHERE id = ${floorID};`;
+
+    db.pool.query(delete_floor_query, [floorID], function(error, rows, fields){
+        if (error){
+            console.log(error);
+            res.sendStatus(400);
+            
+        }
+
+        else {
+            
+            res.sendStatus(204);
+        }
+    })
+});
+
 
 //**********************************************************/
 
