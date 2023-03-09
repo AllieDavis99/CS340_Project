@@ -93,20 +93,32 @@ app.delete('/delete-customer-ajax/', function(req, res, next){
 
 app.put('/put-customer-ajax', function (req, res, next) {
     let data = req.body;
-    let customerID = parseInt(data.id);
-    let phone = parseInt(data.phone_number);
 
-    let queryUpdateCustomer = `UPDATE Customers SET phone_number = ? WHERE Customer.id = ?`;
+    let customerID = parseInt(data.name);
+    let phone = parseInt(data.phone);
+    let address = data.address;
+    let email = data.email;
 
+    let queryUpdateCustomer = `UPDATE Customers SET phone_number = ?, address = ?, email = ? WHERE Customers.id = ?`;
+    let selectCustomer = `SELECT * FROM Customers WHERE id = ?`;
 
-    db.pool.query(queryUpdateCustomer, [customerID, phone], function (error, rows, fields) {
+    db.pool.query(queryUpdateCustomer, [phone,address, email, customerID], function (error, rows, fields) {
+        console.log(phone);
         if (error) {
             console.log(error);
             res.sendStatus(400);
         }
 
         else {
-            res.send(rows);
+            db.pool.query(selectCustomer, [customerID], function(error, rows, fields){
+                if (error){
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else{
+                    res.send(rows);
+                }
+            })
         }
     })
 

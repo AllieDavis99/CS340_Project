@@ -102,6 +102,13 @@
 
     <label for="input-phone_number">phone_number: </label>
     <input type="text" id="input-phone_number-update" name="input-phone_number">
+
+    <label for="input-address">address: </label>
+    <input type="text" id="input-address-update">
+
+    <label for="input-email">email: </label>
+    <input type="text" id="input-email-update">
+
     <input type="submit">
 
 </form>
@@ -119,10 +126,14 @@
         // Get form fields we need to get data from
         let inputName = document.getElementById("mySelect");
         let inputPhone = document.getElementById("input-phone_number-update");
+        let inputAddress = document.getElementById("input-address-update");
+        let inputEmail = document.getElementById("input-email-update");
 
         // Get the values from the form fields
         let nameValue = inputName.value;
         let phoneValue = inputPhone.value;
+        let addressValue = inputAddress.value;
+        let emailValue = inputEmail.value;
 
         // currently the database table for bsg_people does not allow updating values to NULL
         // so we must abort if being bassed NULL for homeworld
@@ -131,11 +142,12 @@
             return;
         }
 
-
         // Put our data we want to send in a javascript object
         let data = {
             name: nameValue,
             phone: phoneValue,
+            address: addressValue,
+            email: emailValue
         }
 
         // Setup our AJAX request
@@ -148,7 +160,7 @@
             if (xhttp.readyState == 4 && xhttp.status == 200) {
 
                 // Add the new data to the table
-                updateRow(xhttp.response, fullNameValue);
+                updateRow(xhttp.response, nameValue);
 
             }
             else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -175,11 +187,15 @@
                 // Get the location of the row where we found the matching person ID
                 let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-                // Get td of homeworld value
-                let td = updateRowIndex.getElementsByTagName("td")[3];
+                // Get td of updated values
+                let phone_number_html = updateRowIndex.getElementsByTagName("td")[2];
+                let address_html = updateRowIndex.getElementsByTagName("td")[3];
+                let email_html = updateRowIndex.getElementsByTagName("td")[4];
 
                 // Reassign homeworld to our value we updated to
-                td.innerHTML = parsedData[0].name;
+                phone_number_html.innerHTML = parsedData[0].phone_number;
+                address_html.innerHTML = parsedData[0].address;
+                email_html.innerHTML = parsedData[0].email;
             }
         }
     }

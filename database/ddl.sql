@@ -9,7 +9,7 @@ SET AUTOCOMMIT = 0;
 CREATE OR REPLACE TABLE `Customers`(
   `id` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `phone_number` int(11) NOT NULL,  
+  `phone_number` varchar(255) NOT NULL,  
   `address` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
@@ -71,9 +71,9 @@ CREATE OR REPLACE TABLE `Bookings`(
 --
 
 INSERT INTO Customers (name, phone_number, address, email)
-VALUES ("Jack Torrance", 5005555555, "27500 E Timberline Rd, OR 97028", "jtorrance@hello.com"),
-("Dick Hallorann", 4511234567, "1 Ahwahnee Dr, CA 95389", "dhallorann@hello.com"),
-("Louise Grady", 1002003000, "333 Wonderview Ave, CO 80517", "gradyX2@hello.com");
+VALUES ("Jack Torrance", "5005555555", "27500 E Timberline Rd, OR 97028", "jtorrance@hello.com"),
+("Dick Hallorann", "4511234567", "1 Ahwahnee Dr, CA 95389", "dhallorann@hello.com"),
+("Louise Grady", "1002003000", "333 Wonderview Ave, CO 80517", "gradyX2@hello.com");
 
 INSERT INTO Floors (occupied_rooms, empty_rooms, has_facilities)
 VALUES(1,10,true),
