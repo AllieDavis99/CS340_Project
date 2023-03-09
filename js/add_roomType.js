@@ -1,6 +1,6 @@
-let add_floor_form = document.getElementById('addFloorForm');
+let add_roomType_form = document.getElementById('addRoomTypeForm');
 
-add_customer_form.addEventListener("addFloor", function (e) {
+add_customer_form.addEventListener("addRoomType", function (e) {
     e.preventDefault();
 
     //get data from form

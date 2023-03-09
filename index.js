@@ -29,11 +29,10 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-//
-//CUSTOMERS ROUTES
-//
 
-//GET ROUTES
+// *********************** CUSTOMERS ****************************/
+
+// SELECT
 app.get('/customers.hbs', function (req, res) {
     let customer_get_query = "SELECT * FROM Customers;";
     db.pool.query(customer_get_query, function (error, rows, fields) {
@@ -41,7 +40,8 @@ app.get('/customers.hbs', function (req, res) {
     })
 });
 
-//POST ROUTES
+
+// ADD
 app.post('/customers.hbs', function(req, res){
     let data = req.body;
 
@@ -70,7 +70,7 @@ app.post('/customers.hbs', function(req, res){
     })
 });
 
-//DELETE ROUTE
+//DELETE 
 app.delete('/delete-customer-ajax/', function(req, res, next){
     let data = req.body;
     let customerID = parseInt(data.id);
@@ -90,7 +90,7 @@ app.delete('/delete-customer-ajax/', function(req, res, next){
     })
 });
 
-
+//UPDATES
 app.put('/put-customer-ajax', function (req, res, next) {
     let data = req.body;
     let customerID = parseInt(data.id);
@@ -112,7 +112,11 @@ app.put('/put-customer-ajax', function (req, res, next) {
 
 });
 
+// *******************************************************************/
 
+//*********** BOOKINGS **********************/
+
+//SELECT 
 app.get('/bookings.hbs', function (req, res) {
     let booking_get_query = "SELECT * FROM Bookings;";
     db.pool.query(booking_get_query, function (error, rows, fields) {
@@ -120,6 +124,9 @@ app.get('/bookings.hbs', function (req, res) {
     })
 });
 
+// ************ ROOMS ***************************/
+
+//SELECT
 app.get('/rooms.hbs', function (req, res) {
     let rooms_get_query = "SELECT * FROM Rooms;";
     db.pool.query(rooms_get_query, function (error, rows, fields) {
@@ -127,6 +134,40 @@ app.get('/rooms.hbs', function (req, res) {
     })
 });
 
+//ADD
+app.post('/rooms.hbs', function (req, res) {
+    let data = req.body;
+
+    let query1 = `INSERT INTO Rooms (is_occupied, num_occupants) VALUES("${data.is_occupied}", "${data.num_occupants}");`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else {
+            query2 = "SELECT * FROM Rooms;";
+            db.pool.query(query2, function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+
+                else {
+                    res.redirect('/rooms.hbs');
+                }
+            })
+        }
+    })
+});
+
+// ************************************************/
+
+// *********** ROOM TYPES *************************/
+
+//SELECT
 app.get('/roomTypes.hbs', function (req, res) {
     let roomType_get_query = "SELECT * FROM RoomTypes;";
     db.pool.query(roomType_get_query, function (error, rows, fields) {
@@ -134,6 +175,14 @@ app.get('/roomTypes.hbs', function (req, res) {
     })
 });
 
+
+// ***********************************************//
+
+
+
+// **************** FLOORS ********************** // 
+
+//SELECT 
 app.get('/floors.hbs', function (req, res) {
     let floors_get_query = "SELECT * FROM Floors;";
     db.pool.query(floors_get_query, function (error, rows, fields) {
@@ -141,6 +190,42 @@ app.get('/floors.hbs', function (req, res) {
     })
 });
 
+//ADD
+app.post('/floors.hbs', function (req, res) {
+    let data = req.body;
+    let query1 = `INSERT INTO Floors (occupied_rooms, empty_rooms, has_facilities) VALUES("${data.occupied_rooms}", "${data.empty_rooms}", "${data.has_facilities}");`;
+    db.pool.query(query1, function (error, rows, fields) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            query2 = "SELECT * FROM Floors;";
+            db.pool.query(query2, function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+
+                else {
+                    res.redirect('/floors.hbs');
+                }
+            })
+        }
+    })
+});
+
+
+//**********************************************************/
+
+
+
+
+//******************** ROOM TYPES PER FLOOR ****************/
+
+
+//SELECT
 app.get('/roomTypesPerfloor.hbs', function (req, res) {
     let roomTypesPerfloor_get_query = "SELECT * FROM FloorToRoomTypes;";
     let floorID_get_query = "SELECT * FROM Floors"
@@ -163,6 +248,9 @@ app.get('/roomTypesPerfloor.hbs', function (req, res) {
     })
 })
 });
+
+
+// ***************************************************************************/
 
 app.listen(port, function(){
     console.log('Server started at http://localhost:' + port);

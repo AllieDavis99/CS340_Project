@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\js",
+    "\\public",
     "\\views"
   ],
-  "SelectedNode": "\\js\\add_customer.js",
+  "SelectedNode": "\\database",
   "PreviewInSolutionExplorer": false
 }

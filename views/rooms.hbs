@@ -1,11 +1,10 @@
-<table>
+<table id="rooms-table">
     <thead>
         <caption>Rooms</caption>
         <tr>
 
             <th>ID</th>
             <th>Room Type</th>
-            <th>Floor</th>
             <th>Is Occupied</th>
             <th>Number of Occupants</th>
         </tr>
@@ -25,9 +24,14 @@
 
 <h1>Add Room:</h1>
 <form id="addRoom" action="/rooms.hbs" method="post">
-    <label> Is Occupied? </label> <input type="text" name="is_occupied">
-    <label> number of occupants </label> <input type="text" name="num_occupants">
-    <div class="form-group">
-        <input class="btn" type="submit" id="addRooms" value="Add Room">
-    </div>
+    <label> Is Occupied?</label> <select name="has_facilities">
+        <option value="-1">&nbsp;</option>
+        <option value="1" selected>yes</option>
+        <option value="0" selected>no</option>
+    </select>
+        <label> number of occupants </label>
+        <input type="text" name="num_occupants">
+        <div class="form-group">
+            <input class="btn" type="submit" id="addRooms" value="Add Room">
+        </div>
 </form>
