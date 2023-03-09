@@ -131,8 +131,50 @@ app.put('/put-customer-ajax', function (req, res, next) {
 //SELECT 
 app.get('/bookings.hbs', function (req, res) {
     let booking_get_query = "SELECT * FROM Bookings;";
-    db.pool.query(booking_get_query, function (error, rows, fields) {
-        res.render('bookings', { data: rows })
+
+    //query for dynamicly populated drop-down search with foreign keys
+    let get_customers_query = "SELECT * FROM Customers;";
+    let get_rooms_query = "SELECT * FROM Rooms;";
+
+    db.pool.query(get_customers_query, function(error, rows, fields){
+        let customers = rows;
+
+        db.pool.query(get_rooms_query, function(error, rows, fields){
+            let rooms = rows;
+
+            db.pool.query(booking_get_query, function (error, rows, fields) {
+                res.render('bookings', { data: rows, customers: customers, rooms: rooms })
+            })
+        })
+    })
+});
+
+//ADD
+app.post('/bookings.hbs', function(req, res){
+    let data = req.body;
+
+    let booking_insert_query = `INSERT INTO Bookings (customer_id, room_id, check_in, check_out) VALUES (${data.input_customer}, ${data.input_room}, ${data.check_in}, ${data.check_out});`;
+    db.pool.query(booking_insert_query, function(error, rows, fields){
+        
+        if(error){
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else{
+            query2 = "SELECT * FROM Bookings;";
+            db.pool.query(query2, function(error, rows, fields){
+
+                if (error){
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+
+                else{
+                    res.redirect('/bookings.hbs');
+                }
+            })
+        }
     })
 });
 
@@ -197,6 +239,7 @@ app.get('/roomTypes.hbs', function (req, res) {
 //SELECT 
 app.get('/floors.hbs', function (req, res) {
     let floors_get_query = "SELECT * FROM Floors;";
+    
     db.pool.query(floors_get_query, function (error, rows, fields) {
         res.render('floors', { data: rows })
     })

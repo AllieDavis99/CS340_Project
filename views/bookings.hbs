@@ -1,3 +1,6 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="application/json" src="./js/add_booking.js"></script>
+
 [
              <a href="customers.hbs">Customers</a>
             | <a href="bookings.hbs">Bookings</a>
@@ -7,7 +10,7 @@
             | <a href="roomTypesPerfloor.hbs">Room Types Per Floor</a>
             ]
 
-<table>
+<table id="bookings-table">
     <thead>
         <caption>Bookings</caption>
         <tr>
@@ -34,23 +37,30 @@
 </table>
 
 <h1>Add Booking:</h1>
-<form id="addBooking" action="/bookings.hbs" method="post">
-    <label for="input-customer_id">Customer ID: </label>
-    <select name="input-customer" id="input-customer">
+<form id="addBookingForm" action="/bookings.hbs" method="post">
+
+    <label for="inputcustomer_id">Customer: </label>
+    <select name="input_customer" id="input_customer">
         <option value="">Select a Customer</option>
         {{#each customers}}
         <option value="{{this.id}}">{{this.name}}</option>
         {{/each}}
     </select>
+
     <label for="input-room_id">Room ID: </label>
-    <select name="input-room" id="input-room">
+    <select name="input_room" id="input_room">
         <option value="">Select a Room</option>
         {{#each rooms}}
         <option value="{{this.id}}">{{this.id}}</option>
         {{/each}}
     </select>
-    <label> Check In Date </label> <input type="date" name="check_in">
-    <label> Check Out Date </label> <input type="date" name="check_out">
+
+    <label> Check In Date </label> 
+    <input type="date" name="check_in" id="input_check_in">
+
+    <label> Check Out Date </label> 
+    <input type="date" name="check_out" id="input_check_out">
+
     <div class="form-group">
         <input class="btn" type="submit" id="addBooking" value="Add Booking">
     </div>
