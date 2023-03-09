@@ -153,7 +153,7 @@ app.get('/bookings.hbs', function (req, res) {
 app.post('/bookings.hbs', function(req, res){
     let data = req.body;
 
-    let booking_insert_query = `INSERT INTO Bookings (customer_id, room_id, check_in, check_out) VALUES (${data.input_customer}, ${data.input_room}, ${data.check_in}, ${data.check_out});`;
+    let booking_insert_query = `INSERT INTO Bookings (customer_id, room_id, check_in, check_out) VALUES ('${data.customer_id}', '${data.room_id}', '${data.check_in}', '${data.check_out}');`;
     db.pool.query(booking_insert_query, function(error, rows, fields){
         
         if(error){

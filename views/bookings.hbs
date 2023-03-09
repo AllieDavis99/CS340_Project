@@ -40,7 +40,7 @@
 <form id="addBookingForm" action="/bookings.hbs" method="post">
 
     <label for="inputcustomer_id">Customer: </label>
-    <select name="input_customer" id="input_customer">
+    <select name="customer_id" id="customer_id">
         <option value="">Select a Customer</option>
         {{#each customers}}
         <option value="{{this.id}}">{{this.name}}</option>
@@ -48,7 +48,7 @@
     </select>
 
     <label for="input-room_id">Room ID: </label>
-    <select name="input_room" id="input_room">
+    <select name="room_id" id="room_id">
         <option value="">Select a Room</option>
         {{#each rooms}}
         <option value="{{this.id}}">{{this.id}}</option>
@@ -56,10 +56,10 @@
     </select>
 
     <label> Check In Date </label> 
-    <input type="date" name="check_in" id="input_check_in">
+    <input type="date" name="check_in" id="check_in">
 
     <label> Check Out Date </label> 
-    <input type="date" name="check_out" id="input_check_out">
+    <input type="date" name="check_out" id="check_out">
 
     <div class="form-group">
         <input class="btn" type="submit" id="addBooking" value="Add Booking">
