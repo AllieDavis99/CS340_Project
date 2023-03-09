@@ -351,7 +351,35 @@ app.get('/roomTypesPerfloor.hbs', function (req, res) {
     })
 });
 
+//ADD 
+app.post('/roomTypesPerfloor.hbs', function (req, res) {
 
+    let data = req.body;
+
+    let query1 = `INSERT INTO FloorToRoomTypes (floor_id, room_type_id) VALUES("${data.floor_id}", "${data.room_type_id}");`;
+    db.pool.query(query1, function(error, rows, fields){
+        
+        if(error){
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else{
+            query2 = "SELECT * FROM FloorToRoomTypes;";
+            db.pool.query(query2, function(error, rows, fields){
+
+                if (error){
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+
+                else{
+                    res.redirect('/roomTypesPerFloor.hbs');
+                }
+            })
+        }
+    })
+});
 // ***************************************************************************/
 
 app.listen(port, function(){
