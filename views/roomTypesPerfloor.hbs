@@ -39,9 +39,9 @@
         {{/each}}
     </select>
     <select name="input-room_type_id" id="input-room_type_id">
-        <option value="">Select a floor</option>
-        {{#each roomTypes}}
-        <option value="{{this.id}}">{{this.id}}</option>
+        <option value="">Select a Room Type</option>
+        {{#each room_types}}
+        <option value="{{this.id}}">{{this.type_name}}</option>
         {{/each}}
     </select>
     <div class="form-group">

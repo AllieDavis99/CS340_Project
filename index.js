@@ -332,26 +332,23 @@ app.delete('/delete-floor-ajax/', function(req, res, next){
 
 //SELECT
 app.get('/roomTypesPerfloor.hbs', function (req, res) {
-    let roomTypesPerfloor_get_query = "SELECT * FROM FloorToRoomTypes;";
-    let floorID_get_query = "SELECT * FROM Floors"
-    db.pool.query(roomTypesPerfloor_get_query, function (error, rows, fields) {
-        let RTPF = rows;
-        db.pool.query(floorID_get_query, (error, rows, fields) => {
-            let FloorIDS = rows;
-            let floormap = {}
-            FloorIDS.map(Floors => {
-                let id = parseInt(Floors.id, 10)
-                floormap[id] = Floors["id"]
-        
-        })
+    let booking_get_query = "SELECT * FROM FloorToRoomTypes;";
 
-        RTPF = RTPF.map(FloorToRoomTypes => {
-            return Object.assign(FloorToRoomTypes, { floor_id: floormap[FloorToRoomTypes.floor_id] })
-        })
-            return res.render('roomTypesPerfloor', { data: RTPF, FloorIDS: FloorIDS });
+    //query for dynamicly populated drop-down search with foreign keys
+    let get_floors_query = "SELECT * FROM Floors;";
+    let get_room_types_query = "SELECT * FROM RoomTypes;";
 
+    db.pool.query(get_floors_query, function(error, rows, fields){
+        let floors = rows;
+
+        db.pool.query(get_room_types_query, function(error, rows, fields){
+            let room_types = rows;
+
+            db.pool.query(booking_get_query, function (error, rows, fields) {
+                res.render('roomTypesPerFloor', { data: rows, floors: floors, room_types: room_types})
+            })
+        })
     })
-})
 });
 
 
