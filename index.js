@@ -182,9 +182,17 @@ app.post('/bookings.hbs', function(req, res){
 
 //SELECT
 app.get('/rooms.hbs', function (req, res) {
-    let rooms_get_query = "SELECT * FROM Rooms;";
-    db.pool.query(rooms_get_query, function (error, rows, fields) {
-        res.render('rooms', { data: rows })
+    let room_get_query = "SELECT * FROM Rooms;";
+
+    //query for dynamicly populated drop-down search with foreign keys
+    let query2 = "SELECT * FROM FloorToRoomTypes;";
+
+    db.pool.query(query2, function(error, rows, fields){
+        let floorToRoom = rows;
+
+        db.pool.query(room_get_query, function (error, rows, fields) {
+            res.render('rooms', { data: rows, floorToRoom: floorToRoom})
+        })
     })
 });
 
@@ -192,7 +200,7 @@ app.get('/rooms.hbs', function (req, res) {
 app.post('/rooms.hbs', function (req, res) {
     let data = req.body;
 
-    let query1 = `INSERT INTO Rooms (is_occupied, num_occupants) VALUES("${data.is_occupied}", "${data.num_occupants}");`;
+    let query1 = `INSERT INTO Rooms (floor_to_room_type_id, is_occupied, num_occupants) VALUES("${data.floor_to_room_type_id}", "${data.is_occupied}", "${data.num_occupants}");`;
     db.pool.query(query1, function (error, rows, fields) {
 
         if (error) {

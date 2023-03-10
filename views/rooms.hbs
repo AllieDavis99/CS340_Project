@@ -1,3 +1,6 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="application/json" src="./js/add_room.js"></script>
+
 [
              <a href="customers.hbs">Customers</a>
             | <a href="bookings.hbs">Bookings</a>
@@ -13,7 +16,7 @@
         <tr>
 
             <th>ID</th>
-            <th>Room Type</th>
+            <th>Floor/RoomType ID</th>
             <th>Is Occupied</th>
             <th>Number of Occupants</th>
         </tr>
@@ -33,14 +36,25 @@
 
 <h1>Add Room:</h1>
 <form id="addRoom" action="/rooms.hbs" method="post">
-    <label> Is Occupied?</label> <select name="has_facilities">
-        <option value="-1">&nbsp;</option>
-        <option value="1" selected>yes</option>
-        <option value="0" selected>no</option>
+    <label>Floor/RoomType ID: </label>
+    <select name="floor_to_room_type_id" id="floor_to_room_type_id" name="floor_to_room_type_id">
+        <option value="">Select a Customer</option>
+        {{#each floorToRoom}}
+        <option value="{{this.id}}">{{this.id}}</option>
+        {{/each}}
     </select>
-        <label> number of occupants </label>
-        <input type="text" name="num_occupants">
-        <div class="form-group">
-            <input class="btn" type="submit" id="addRooms" value="Add Room">
-        </div>
+
+    <label> Is Occupied?</label> 
+    <select name="is_occupied" id="is_occupied">
+        <option value="">&nbsp;</option>
+        <option value="1" selected>yes</option>
+        <option value="0">no</option>
+    </select>
+
+    <label> number of occupants </label>
+    <input type="number" name="num_occupants">
+        
+    <div class="form-group">
+        <input class="btn" type="submit" id="addRooms" value="Add Room">
+    </div>
 </form>

@@ -4,14 +4,17 @@ add_customer_form.addEventListener("addRoom", function (e) {
     e.preventDefault();
 
     //get data from form
+    let inputFloorToRoom = document.getElementById("floor_to_room_type_id");
     let inputOcc = document.getElementById("is_occupied");
     let inputNumOcc = document.getElementById("num_occupants");
 
-    let inputValue = inputOcc.value;
+    let floorToRoomValue = inputFloorToRoom.value;
+    let OccValue = inputOcc.value;
     let numOccValue = inputNumOcc.value;
 
 
     let data = {
+        floor_to_room: floorToRoomValue,
         is_occupied: inputOcc,
         num_occupants: inputNumOcc,
     }
@@ -26,7 +29,8 @@ add_customer_form.addEventListener("addRoom", function (e) {
             addRowToTable(xhttp.response);
 
             //clear input fields for next transaction
-            inputValue.value = '';
+            floorToRoomValue = '';
+            OccValue.value = '';
             numOccValue.value = '';
         }
 
@@ -49,22 +53,21 @@ addRowToTable = (data) => {
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
     let FTRTCel = document.createElement("TD");
-    let inputCell = document.createElement("TD");
+    let OccCell = document.createElement("TD");
     let numOccCell = document.createElement("TD");
 
 
     //populate cells
     idCell.innerText = newRow.id;
-    tempCell.innerText = newRow.floor_to_room_type_id;
-    FTRTCel.innerText = newRow.occupied_rooms;
-    inputCell.innerText = newRow.empty_rooms;
-    numOccCell.innerText = newRow.has_facilities;
+    FTRTCell.innerText = newRow.floor_to_room_type_id;
+    OccCell.innerText = newRow.is_occupied;
+    numOccCell.innerText = newRow.num_occupants;
 
 
     //add cells to row
     row.appendChild(idCell);
     row.appendChild(FTRTCel);
-    row.appendChild(inputCell);
+    row.appendChild(OccCell);
     row.appendChild(numOccCell);
 
     currentTable.appendChild(row);
