@@ -35,7 +35,16 @@ app.get('http://flip2.engr.oregonstate.edu:8378/', function (req, res) {
 
 // SELECT
 app.get('/customers.hbs', function (req, res) {
-    let customer_get_query = "SELECT * FROM Customers;";
+    let customer_get_query;
+
+    if (req.query.search_input == undefined){
+        customer_get_query = "SELECT * FROM Customers;";   
+    }
+
+    else{
+        customer_get_query = `SELECT * FROM Customers WHERE name LIKE "${req.query.search_input}"`
+    }
+    
     db.pool.query(customer_get_query, function (error, rows, fields) {
         res.render('customers', {data: rows})
     })
@@ -389,6 +398,58 @@ app.post('/roomTypesPerfloor.hbs', function (req, res) {
         }
     })
 });
+
+//DELETE
+app.delete('/delete-room-per-floor-ajax', function(req, res, next){
+    let data = req.body;
+    let roomToFloorID = parseInt(data.id);
+    let delete_query = `DELETE FROM FloorToRoomTypes WHERE id = ${roomToFloorID};`;
+
+    db.pool.query(delete_query, [roomToFloorID], function(error, rows, fields){
+        if (error){
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            
+            res.sendStatus(204);
+        }
+    })
+});
+
+//UPDATES
+app.put("/put-relationship-ajax", function (req, res, next) {
+    let data = req.body;
+
+    let relationshipID = parseInt(data.id);
+    let floor = parseInt(data.floor);
+    let room_type = data.roomType;
+
+    let queryUpdate = `UPDATE FloorToRoomTypes SET floor_id = ?, room_type_id = ? WHERE FloorToRoomTypes.id = ?`;
+    let selectquery = `SELECT * FROM FloorToRoomTypes WHERE id = ?`;
+
+    db.pool.query(queryUpdate, [floor, room_type, relationshipID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            db.pool.query(selectquery, [relationshipID], function(error, rows, fields){
+                if (error){
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else{
+                    res.send(rows);
+                }
+            })
+        }
+    })
+
+});
+
 // ***************************************************************************/
 
 app.listen(port, function(){
