@@ -7,7 +7,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
-const port = process.env.PORT || 8933;
+const port = process.env.PORT || 8934;
 
 var db = require('./database/db_connector.js')
 
@@ -25,8 +25,9 @@ app.set('view engine', '.hbs');
 //
 
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '/index.html'));
+
+app.get('http://flip2.engr.oregonstate.edu:8378/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
 });
 
 
@@ -391,5 +392,5 @@ app.post('/roomTypesPerfloor.hbs', function (req, res) {
 // ***************************************************************************/
 
 app.listen(port, function(){
-    console.log('Server started at http://localhost:' + port);
+    console.log('Server started at http://flip3.engr.oregonstate.edu:' + port);
 });
