@@ -34,7 +34,16 @@ app.get('/', function (req, res) {
 
 // SELECT
 app.get('/customers.hbs', function (req, res) {
-    let customer_get_query = "SELECT * FROM Customers;";
+    let customer_get_query;
+
+    if (req.query.search_input == undefined){
+        customer_get_query = "SELECT * FROM Customers;";   
+    }
+
+    else{
+        customer_get_query = `SELECT * FROM Customers WHERE name LIKE "${req.query.search_input}"`
+    }
+    
     db.pool.query(customer_get_query, function (error, rows, fields) {
         res.render('customers', {data: rows})
     })
