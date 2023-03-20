@@ -407,6 +407,39 @@ app.delete('/delete-room-per-floor-ajax', function(req, res, next){
         }
     })
 });
+
+//UPDATES
+app.put("/put-relationship-ajax", function (req, res, next) {
+    let data = req.body;
+
+    let relationshipID = parseInt(data.id);
+    let floor = parseInt(data.floor);
+    let room_type = data.roomType;
+
+    let queryUpdate = `UPDATE FloorToRoomTypes SET floor_id = ?, room_type_id = ? WHERE FloorToRoomTypes.id = ?`;
+    let selectquery = `SELECT * FROM FloorToRoomTypes WHERE id = ?`;
+
+    db.pool.query(queryUpdate, [floor, room_type, relationshipID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            db.pool.query(selectquery, [relationshipID], function(error, rows, fields){
+                if (error){
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                else{
+                    res.send(rows);
+                }
+            })
+        }
+    })
+
+});
+
 // ***************************************************************************/
 
 app.listen(port, function(){
