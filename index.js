@@ -388,6 +388,25 @@ app.post('/roomTypesPerfloor.hbs', function (req, res) {
         }
     })
 });
+
+//DELETE
+app.delete('/delete-room-per-floor-ajax', function(req, res, next){
+    let data = req.body;
+    let roomToFloorID = parseInt(data.id);
+    let delete_query = `DELETE FROM FloorToRoomTypes WHERE id = ${roomToFloorID};`;
+
+    db.pool.query(delete_query, [roomToFloorID], function(error, rows, fields){
+        if (error){
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            
+            res.sendStatus(204);
+        }
+    })
+});
 // ***************************************************************************/
 
 app.listen(port, function(){

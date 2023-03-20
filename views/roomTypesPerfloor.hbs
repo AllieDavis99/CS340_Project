@@ -7,7 +7,7 @@
             | <a href="roomTypesPerfloor.hbs">Room Types Per Floor</a>
             ]
 
-<table>
+<table id="room-per-floor-table">
     <thead>
         <caption>Room Types Per Floor</caption>
         <tr>
@@ -24,12 +24,47 @@
             <td>{{this.id}}</td>
             <td>{{this.floor_id}}</td>
             <td>{{this.room_type_id}}</td>
+            <td><button id="delete-room-to-floor" onClick="deleteRoomPerFloor({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-<h1>Add Floor:</h1>
+<script>
+    function deleteRoomPerFloor(roomPerFloorID) {
+        let data = {
+            id: roomPerFloorID
+        };
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "/delete-room-per-floor-ajax", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 204) {
+
+                deleteRow(roomPerFloorID);
+
+            }
+            else if (xhttp.readyState == 4 && xhttp.status != 204) {
+                console.log("There was an error with the input.")
+            }
+        }     // Send the request and wait for the response
+        xhttp.send(JSON.stringify(data));
+    }
+
+    function deleteRow(roomPerFloorID) {
+        let table = document.getElementById("room-per-floor-table");
+        for (let i = 0, row; row = table.rows[i]; i++) {
+            if (table.rows[i].getAttribute("data-value") == roomPerFloorID) {
+                table.deleteRow(i);
+                break;
+            }
+        }
+    };
+    </script>
+
+<h1>Add Relationship:</h1>
 <form id="addRoomTypePerFloor" action="/roomTypesPerfloor.hbs" method="post">
 
     <select name="floor_id" id="floor_id">
