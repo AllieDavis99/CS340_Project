@@ -26,7 +26,7 @@ app.set('view engine', '.hbs');
 
 
 
-app.get('http://flip2.engr.oregonstate.edu:8378/', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -343,27 +343,28 @@ app.delete('/delete-floor-ajax/', function(req, res, next){
 //**********************************************************/
 
 
-
-
 //******************** ROOM TYPES PER FLOOR ****************/
-
-
 //SELECT
 app.get('/roomTypesPerfloor.hbs', function (req, res) {
-    let booking_get_query = "SELECT * FROM FloorToRoomTypes;";
+
+    let booking_get_query = "SELECT self.id, self.floor_id, rt.type_name AS room_type_name FROM FloorToRoomTypes AS self INNER JOIN RoomTypes AS rt ON self.room_type_id = rt.id;";
+       
+
+    
 
     //query for dynamicly populated drop-down search with foreign keys
     let get_floors_query = "SELECT * FROM Floors;";
     let get_room_types_query = "SELECT * FROM RoomTypes;";
 
-    db.pool.query(get_floors_query, function(error, rows, fields){
+
+    db.pool.query(get_floors_query, function (error, rows, fields) {
         let floors = rows;
 
-        db.pool.query(get_room_types_query, function(error, rows, fields){
+        db.pool.query(get_room_types_query, function (error, rows, fields) {
             let room_types = rows;
 
             db.pool.query(booking_get_query, function (error, rows, fields) {
-                res.render('roomTypesPerFloor', { data: rows, floors: floors, room_types: room_types})
+                res.render('roomTypesPerFloor', { data: rows, floors: floors, room_types: room_types })
             })
         })
     })
